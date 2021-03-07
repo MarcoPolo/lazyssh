@@ -257,6 +257,11 @@ func (prov *Provider) start(mach *providers.Machine) (bool, error) {
 
 	log.Printf("EC2 instance '%s' is running\n", *inst.InstanceId)
 
+	mach.State = &state{
+		id:   *inst.InstanceId,
+		addr: inst.PublicIpAddress,
+	}
+
 	// We're running, we can attach the volumes
 	for _, v := range prov.AttachVolumes {
 		v.InstanceId = inst.InstanceId
@@ -267,10 +272,6 @@ func (prov *Provider) start(mach *providers.Machine) (bool, error) {
 		}
 	}
 
-	mach.State = &state{
-		id:   *inst.InstanceId,
-		addr: inst.PublicIpAddress,
-	}
 	return true, nil
 }
 
