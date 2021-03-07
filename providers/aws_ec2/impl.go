@@ -221,7 +221,7 @@ func (prov *Provider) start(mach *providers.Machine) (bool, error) {
 		UserData:            prov.UserData64,
 		IamInstanceProfile:  prov.IamInstanceProfile,
 		// TODO change this
-		Placement: &types.Placement{AvailabilityZone: "us-west-2d"},
+		Placement: &types.Placement{AvailabilityZone: aws.String("us-west-2d")},
 	})
 	if err != nil {
 		log.Printf("EC2 instance failed to start: %s\n", err.Error())
